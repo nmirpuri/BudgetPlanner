@@ -1,7 +1,4 @@
-pip install matplotlib
 import streamlit as st
-import pandas as pd
-import matplotlib.pyplot as plt
 
 # Initialize session state
 if "page" not in st.session_state:
@@ -57,25 +54,11 @@ elif st.session_state["page"] == "summary":
     for item, value in expense_values.items():
         st.write(f"{item}: ${value:.2f}")
     
-    # Calculate total expenses
-    total_expenses = sum(bill_values.values()) + sum(expense_values.values())
     st.write("### Total Expenses")
+    total_expenses = sum(bill_values.values()) + sum(expense_values.values())
     st.write(f"**Total:** ${total_expenses:.2f}")
-    
-    # Data for visualization
-    data = {**bill_values, **expense_values}
-    df = pd.DataFrame(list(data.items()), columns=["Category", "Amount"])
-    
-    # Plotting a bar chart
-    st.write("### Expense Breakdown")
-    fig, ax = plt.subplots()
-    ax.bar(df["Category"], df["Amount"], color="skyblue")
-    ax.set_title("Expense Breakdown")
-    ax.set_xlabel("Category")
-    ax.set_ylabel("Amount")
-    plt.xticks(rotation=45)
-    st.pyplot(fig)
-
+    if st.button("Restart"):
+        st.bar_chart(df.set_index("Category"))
     # Option to restart
     if st.button("Restart"):
         st.session_state["page"] = "income"
