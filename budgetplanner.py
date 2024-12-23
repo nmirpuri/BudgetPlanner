@@ -1,5 +1,4 @@
-pip install streamlit
-import streamlit as st
+
 
 # Sample list of bill items
 bill_items = ["Rent", "Groceries", "Utilities", "Transportation", "Entertainment"]
