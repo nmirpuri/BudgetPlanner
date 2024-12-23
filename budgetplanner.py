@@ -57,8 +57,7 @@ elif st.session_state["page"] == "summary":
     st.write("### Total Expenses")
     total_expenses = sum(bill_values.values()) + sum(expense_values.values())
     st.write(f"**Total:** ${total_expenses:.2f}")
-    if st.button("Restart"):
-        st.bar_chart(df.set_index("Category"))
+   
     # Option to restart
     if st.button("Restart"):
         st.session_state["page"] = "income"
