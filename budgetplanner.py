@@ -17,9 +17,9 @@ if st.session_state["page"] == "income":
         income_values[item] = st.number_input(f"{item}:", min_value=0.0, step=0.01, key=item)
     
     # Submit button
-    if st.button("Submit"):
-        st.session_state["income_values"] = income_values  # Save bill data to session state
-        st.session_state["page"] = "bills"  # Navigate to next page
+if st.button("Submit"):
+    st.session_state["income_values"] = income_values  # Save bill data to session state
+    st.session_state["page"] = "bills"  # Navigate to next page
 
 # Page: Additional Expenses
 elif st.session_state["page"] == "bills":
@@ -34,13 +34,13 @@ elif st.session_state["page"] == "bills":
         bills_values[item] = st.number_input(f"{item}:", min_value=0.0, step=0.01, key=item)
 
 if st.button("Submit"):
-        st.session_state["bills_values"] = bills_values  # Save bill data to session state
-        st.session_state["page"] = "bills"
+    st.session_state["bills_values"] = bills_values  # Save bill data to session state
+    st.session_state["page"] = "bills"
          
     # Show summary
 if st.button("Show Summary"):
-        st.session_state["bills_values"] = bills_values
-        st.session_state["page"] = "Heatlh & Insurance"
+    st.session_state["bills_values"] = bills_values
+    st.session_state["page"] = "Heatlh & Insurance"
 
 # Heatlh & Insurance
 elif st.session_state["page"] == "Heatlh & Insurance":
