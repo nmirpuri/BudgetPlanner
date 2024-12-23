@@ -33,12 +33,12 @@ elif st.session_state["page"] == "bills":
     for item in bills_items:
         bills_values[item] = st.number_input(f"{item}:", min_value=0.0, step=0.01, key=item)
 
-     if st.button("Submit"):
+if st.button("Submit"):
         st.session_state["bills_values"] = bills_values  # Save bill data to session state
         st.session_state["page"] = "bills"
          
     # Show summary
-    if st.button("Show Summary"):
+if st.button("Show Summary"):
         st.session_state["bills_values"] = bills_values
         st.session_state["page"] = "Heatlh & Insurance"
 
