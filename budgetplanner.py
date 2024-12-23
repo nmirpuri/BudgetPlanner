@@ -56,9 +56,9 @@ elif st.session_state["page"] == "Heatlh & Insurance":
 
 
     # Show summary
-     if st.button("Submit"):
-        st.session_state["bills_values"] = insurance_values  # Save bill data to session state
-        st.session_state["page"] = "summary"
+if st.button("Submit"):
+    st.session_state["bills_values"] = insurance_values  # Save bill data to session state
+    st.session_state["page"] = "summary"
          
    
 
@@ -80,7 +80,7 @@ elif st.session_state["page"] == "summary":
     for item, value in bills_values.items():
         st.write(f"{item}: ${value:.2f}")
 
-     st.write("### Insurance Expenses")
+    st.write("### Insurance Expenses")
     for item, value in insurance_values.items():
         st.write(f"{item}: ${value:.2f}")
 
