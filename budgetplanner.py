@@ -103,26 +103,19 @@ elif st.session_state["page"] == "summary":
 
 
 # Example Pie Chart Code
-    data = {
-    'Category': ['Insurance', 'Insurance', 'Insurance', 'Rent', 'Utilities', 'Food'],
-    'Subcategory': ['Health Insurance', 'Life Insurance', 'Auto Insurance', None, None, None],
-    'Amount': [300, 150, 200, 1200, 150, 300]
-    }
+data = {'Category': ['Rent', 'Utilities', 'Food', 'Savings'], 'Amount': [1200, 150, 300, 500]}
+df = pd.DataFrame(data)
 
-    df = pd.DataFrame(data)
+st.title("Budget Analysis")
 
-# Display the hierarchical chart
-    st.title("Budget Analysis with Subcategories")
+# Display a pie chart using Plotly
+fig = px.pie(df, values='Amount', names='Category', title='Expense Distribution')
+st.plotly_chart(fig)
 
-# Create a sunburst chart
-    fig = px.sunburst(
-        df,
-        path=['Category', 'Subcategory'],  # Define hierarchy
-        values='Amount',
-        title='Expense Distribution with Subcategories'
-    )
-
-    st.plotly_chart(fig)
+# Display a bar chart using Matplotlib
+plt.bar(df['Category'], df['Amount'])
+plt.title('Expense Breakdown')
+st.pyplot(plt)
 
     
 if st.button("Restart", key="restart"):
