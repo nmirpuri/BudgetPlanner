@@ -101,14 +101,26 @@ elif st.session_state["page"] == "summary":
 
 
 # Example Pie Chart Code
-    categories = ["Rent", "Utilities", "Insurance", "Other Bills", "Savings"]
-    values = [1000, 300, 200, 500, 500]  # Example data
+data = {
+'Category': ['Insurance', 'Insurance', 'Insurance', 'Rent', 'Utilities', 'Food'],
+'Subcategory': ['Health Insurance', 'Life Insurance', 'Auto Insurance', None, None, None],
+'Amount': [300, 150, 200, 1200, 150, 300]
+}
 
-    fig, ax = plt.subplots()
-    ax.pie(values, labels=categories, autopct='%1.1f%%', startangle=90)
-    ax.axis('equal')  # Equal aspect ratio ensures pie is drawn as a circle.
+df = pd.DataFrame(data)
 
-    st.pyplot(fig)
+# Display the hierarchical chart
+st.title("Budget Analysis with Subcategories")
+
+# Create a sunburst chart
+fig = px.sunburst(
+    df,
+    path=['Category', 'Subcategory'],  # Define hierarchy
+    values='Amount',
+    title='Expense Distribution with Subcategories'
+)
+
+st.plotly_chart(fig)
 
     
     if st.button("Restart", key="restart"):
