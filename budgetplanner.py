@@ -103,24 +103,24 @@ elif st.session_state["page"] == "summary":
 
 
 # Example Pie Chart Code
-rent_value = st.session_state["bills_values"].get("Rent", 0.0)
+    rent_value = st.session_state["bills_values"].get("Rent", 0.0)
 
-data = {'Category': ['Rent', 'Utilities', 'Food', 'Savings'], 'Amount': [1200, 150, 300, 500]}
-df = pd.DataFrame(data)
+    data = {'Category': ['Rent', 'Utilities', 'Food', 'Savings'], 'Amount': [1200, 150, 300, 500]}
+    df = pd.DataFrame(data)
 
-st.title("Budget Analysis")
+    st.title("Budget Analysis")
 
 # Display a pie chart using Plotly
-fig = px.pie(df, values='Amount', names='Category', title='Expense Distribution')
-st.plotly_chart(fig)
+    fig = px.pie(df, values='Amount', names='Category', title='Expense Distribution')
+    st.plotly_chart(fig)
 
 # Display a bar chart using Matplotlib
-plt.bar(df['Category'], df['Amount'])
-plt.title('Expense Breakdown')
-st.pyplot(plt)
+    plt.bar(df['Category'], df['Amount'])
+    plt.title('Expense Breakdown')
+    st.pyplot(plt)
 
     
-if st.button("Restart", key="restart"):
+    if st.button("Restart", key="restart"):
         st.session_state["page"] = "income"
         st.session_state["income_values"] = {}
         st.session_state["bills_values"] = {}
