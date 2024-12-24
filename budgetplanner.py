@@ -1,3 +1,4 @@
+import matplotlib.pyplot as plt
 import streamlit as st
 
 # Initialize session state
@@ -96,6 +97,19 @@ elif st.session_state["page"] == "summary":
     
     st.write("### Budget Remaining")
     st.write(f"**Total:** ${budget_left:.2f}")
+
+
+
+# Example Pie Chart Code
+categories = ["Rent", "Utilities", "Insurance", "Other Bills", "Savings"]
+values = [1000, 300, 200, 500, 500]  # Example data
+
+fig, ax = plt.subplots()
+ax.pie(values, labels=categories, autopct='%1.1f%%', startangle=90)
+ax.axis('equal')  # Equal aspect ratio ensures pie is drawn as a circle.
+
+st.pyplot(fig)
+
     
     if st.button("Restart", key="restart"):
         st.session_state["page"] = "income"
