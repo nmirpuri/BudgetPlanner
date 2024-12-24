@@ -101,29 +101,29 @@ elif st.session_state["page"] == "summary":
 
 
 # Example Pie Chart Code
-data = {
-'Category': ['Insurance', 'Insurance', 'Insurance', 'Rent', 'Utilities', 'Food'],
-'Subcategory': ['Health Insurance', 'Life Insurance', 'Auto Insurance', None, None, None],
-'Amount': [300, 150, 200, 1200, 150, 300]
-}
+    data = {
+    'Category': ['Insurance', 'Insurance', 'Insurance', 'Rent', 'Utilities', 'Food'],
+    'Subcategory': ['Health Insurance', 'Life Insurance', 'Auto Insurance', None, None, None],
+    'Amount': [300, 150, 200, 1200, 150, 300]
+    }
 
-df = pd.DataFrame(data)
+    df = pd.DataFrame(data)
 
 # Display the hierarchical chart
-st.title("Budget Analysis with Subcategories")
+    st.title("Budget Analysis with Subcategories")
 
 # Create a sunburst chart
-fig = px.sunburst(
-    df,
-    path=['Category', 'Subcategory'],  # Define hierarchy
-    values='Amount',
-    title='Expense Distribution with Subcategories'
-)
+    fig = px.sunburst(
+        df,
+        path=['Category', 'Subcategory'],  # Define hierarchy
+        values='Amount',
+        title='Expense Distribution with Subcategories'
+    )
 
-st.plotly_chart(fig)
+    st.plotly_chart(fig)
 
     
-    if st.button("Restart", key="restart"):
+if st.button("Restart", key="restart"):
         st.session_state["page"] = "income"
         st.session_state["income_values"] = {}
         st.session_state["bills_values"] = {}
