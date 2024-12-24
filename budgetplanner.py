@@ -105,7 +105,7 @@ elif st.session_state["page"] == "summary":
 # Example Pie Chart Code
 rent_value = st.session_state["bills_values"].get("Rent", 0.0)
 
-data = {'Category': ['Rent', 'Utilities', 'Food', 'Savings'], 'Amount': [rent_value, 150, 300, 500]}
+data = {'Category': ['Rent', 'Utilities', 'Food', 'Savings'], 'Amount': [1200, 150, 300, 500]}
 df = pd.DataFrame(data)
 
 st.title("Budget Analysis")
