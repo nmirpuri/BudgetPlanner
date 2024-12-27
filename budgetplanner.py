@@ -3,31 +3,6 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 
-
-def opening_page():
-    # Title for the page
-    st.title("Welcome to Your Budget Journey with Bud Jett!")
-    
-    # Display the first message
-    st.write("They say every journey needs a guide—well, we’re Your Bud Jett, and when it comes to budgeting, we’re always ready for takeoff!")
-    
-    # Display the second message and input field for the user to enter their name
-    st.write("What should we call you?")
-    user_name = st.text_input("Enter your name", "")
-
-    # Check if the user has entered their name and display a greeting
-    if user_name:
-        st.write(f"Nice to meet you, {user_name}! Let’s get your budget ready to take off!")
-    
-    # Add an image related to budgeting (you can replace the image URL with your desired one)
-    st.image("https://upload.wikimedia.org/wikipedia/en/thumb/d/d3/Starbucks_Corporation_Logo_2011.svg/1200px-Starbucks_Corporation_Logo_2011.svg.png", caption="Ready for takeoff with your budget!", use_column_width=True)
-    
-    # Add a button to proceed to the next page
-    if st.button("Next"):
-        # Store the user name in the session state
-        st.session_state["user_name"] = user_name
-        # Transition to the next page
-        st.session_state["page"] = "housing" 
         
 # Initialize session state for navigation and categories
 if "page" not in st.session_state:
