@@ -27,10 +27,32 @@ for key, default_values in category_dicts.items():
 def question_page(title, items, category_key, next_page):
     st.title(f"Budget Planner - {title}")
     st.write(f"Enter your {title} expenses below:")
+
+    # Initialize the session state for this category if it doesn't exist
+    if category_key not in st.session_state:
+        st.session_state[category_key] = {}
+
+    # Handle input for each item
     for item in items:
-        st.session_state[category_key][item] = st.number_input(f"{item}:", min_value=0.0, step=0.01, key=f"{category_key}_{item}")
-    if st.button("Next"):
-        st.session_state["page"] = next_page
+        # Ensure the input value is stored in session state
+        if item not in st.session_state[category_key]:
+            st.session_state[category_key][item] = 0.0
+
+        # Use unique keys for each input
+        st.session_state[category_key][item] = st.number_input(
+            f"{item}:", min_value=0.0, step=0.01, key=f"{category_key}_{item}"
+        )
+
+    # Submit button to store the inputs
+    if st.button("Submit"):
+        st.session_state["submitted"] = True  # Mark the form as submitted
+        st.success("Values submitted!")
+
+    # Next button to go to the next page if form is submitted
+    if st.session_state.get("submitted", False) and st.button("Next"):
+        st.session_state["page"] = next_page  # Move to the next page
+        st.session_state["submitted"] = False  # Reset the submitted flag for the next page
+
 
 if st.session_state["page"] == "housing":
     question_page("Housing & Utilities", ["Rent", "Utilities", "Property Taxes", "Cell Phone Bills", "Other Housing Expenses"], "housing_values", "transportation")
