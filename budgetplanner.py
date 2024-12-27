@@ -36,7 +36,7 @@ def opening_page():
         st.write(f"Nice to meet you, {user_name}! Let’s get your budget ready to take off!")
     
     # Add an image related to budgeting (you can replace the image URL with your desired one)
-    st.image("https://via.placeholder.com/600x400.png?text=Budget+Related+Image", caption="Ready for takeoff with your budget!", use_column_width=True)
+    st.image("https://upload.wikimedia.org/wikipedia/en/thumb/d/d3/Starbucks_Corporation_Logo_2011.svg/1200px-Starbucks_Corporation_Logo_2011.svg.png", caption="Ready for takeoff with your budget!", use_column_width=True)
     
     # Add a button to proceed to the next page
     if st.button("Next"):
