@@ -3,9 +3,12 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 
+
+        
 # Initialize session state for navigation and categories
 if "page" not in st.session_state:
     st.session_state["page"] = "housing"
+
 
 # Initialize dictionaries for each category
 category_dicts = {
@@ -19,18 +22,49 @@ category_dicts = {
     "miscellaneous_values": {"Gifts & Donations": 0.0, "Unexpected Costs": 0.0}
 }
 
+
+def opening_page():
+    # Title for the page
+    st.title("Welcome to Your Budget Journey with Bud Jett!")
+    
+    # Display the first message
+    st.write("They say every journey needs a guide—well, we’re Your Bud Jett, and when it comes to budgeting, we’re always ready for takeoff!")
+    
+    # Display the second message and input field for the user to enter their name
+    st.write("What should we call you?")
+    user_name = st.text_input("Enter your name", "")
+
+
+    # Check if the user has entered their name and display a greeting
+    if user_name:
+        st.write(f"Nice to meet you, {user_name}! Let’s get your budget ready to take off!")
+    
+    # Add an image related to budgeting (you can replace the image URL with your desired one)
+    st.image("https://upload.wikimedia.org/wikipedia/en/thumb/d/d3/Starbucks_Corporation_Logo_2011.svg/1200px-Starbucks_Corporation_Logo_2011.svg.png", caption="Ready for takeoff with your budget!", use_column_width=True)
+    
+    # Add a button to proceed to the next page
+    if st.button("Next"):
+        # Store the user name in the session state
+        st.session_state["user_name"] = user_name
+        # Transition to the next page
+        st.session_state["page"] = "housing"  # Replace "housing" with the next page key or name
+
+
 for key, default_values in category_dicts.items():
     if key not in st.session_state:
         st.session_state[key] = default_values
+
 
 # Pages: Questions and Input Collection
 def question_page(title, items, category_key, next_page):
     st.title(f"Budget Planner - {title}")
     st.write(f"Enter your {title} expenses below:")
 
+
     # Initialize the session state for this category if it doesn't exist
     if category_key not in st.session_state:
         st.session_state[category_key] = {}
+
 
     # Handle input for each item
     for item in items:
@@ -38,19 +72,23 @@ def question_page(title, items, category_key, next_page):
         if item not in st.session_state[category_key]:
             st.session_state[category_key][item] = 0.0
 
+
         # Use unique keys for each input
         st.session_state[category_key][item] = st.number_input(
             f"{item}:", min_value=0.0, step=0.01, key=f"{category_key}_{item}"
         )
 
+
     # Submit button to store the inputs
     submit_button = st.button("Submit")
+
 
     # When the Submit button is clicked, save the form data
     if submit_button:
         st.session_state["page"] = next_page
         st.session_state["submitted"] = True  # Mark the form as submitted
         st.success("Values submitted!")
+
 
     # Disable the Next button until the form has been submitted
     if st.session_state.get("submitted", False):
@@ -64,7 +102,10 @@ def question_page(title, items, category_key, next_page):
         st.warning("Please submit your values before moving to the next page.")
 
 
-# Pages logic
+
+
+
+
 if st.session_state["page"] == "housing":
     question_page("Housing & Utilities", ["Rent", "Utilities", "Property Taxes", "Cell Phone Bills", "Other Housing Expenses"], "housing_values", "transportation")
 elif st.session_state["page"] == "transportation":
@@ -82,12 +123,10 @@ elif st.session_state["page"] == "entertainment_travel":
 elif st.session_state["page"] == "miscellaneous":
     question_page("Miscellaneous", ["Gifts & Donations", "Unexpected Costs"], "miscellaneous_values", "summary")
 
+
 # Summary Page
 elif st.session_state["page"] == "summary":
     st.title("Budget Summary")
-    
-    # Display an image
-    st.image("https://upload.wikimedia.org/wikipedia/en/thumb/d/d3/Starbucks_Corporation_Logo_2011.svg/1200px-Starbucks_Corporation_Logo_2011.svg.png", width=200)
     
     # Retrieve stored values
     housing_values = st.session_state["housing_values"]
@@ -123,6 +162,7 @@ elif st.session_state["page"] == "summary":
         if st.button("Savings Tracker"):
             st.session_state["page"] = "savings_tracker"
 
+
 # Expense Breakdown Page
 elif st.session_state["page"] == "expense_breakdown":
     st.title("Expense Breakdown")
@@ -150,8 +190,10 @@ elif st.session_state["page"] == "expense_breakdown":
     plt.title('Expense Breakdown')
     st.pyplot(plt)
 
+
     if st.button("Back to Summary"):
         st.session_state["page"] = "summary"
+
 
 # Chatbot Page
 elif st.session_state["page"] == "chatbot":
@@ -163,6 +205,7 @@ elif st.session_state["page"] == "chatbot":
     if st.button("Back to Summary"):
         st.session_state["page"] = "summary"
 
+
 # Suggested Budgets Page
 elif st.session_state["page"] == "suggested_budgets":
     st.title("Suggested Budgets")
@@ -171,6 +214,7 @@ elif st.session_state["page"] == "suggested_budgets":
     st.write("- **Dynamic Adjustments:** Recommendations based on your entered data.")
     if st.button("Back to Summary"):
         st.session_state["page"] = "summary"
+
 
 # Savings Tracker Page
 elif st.session_state["page"] == "savings_tracker":
@@ -186,5 +230,11 @@ elif st.session_state["page"] == "savings_tracker":
         else:
             st.info(f"You've saved {progress * 100:.2f}% of your goal.")
 
+
     if st.button("Back to Summary"):
         st.session_state["page"] = "summary"
+
+
+
+
+
