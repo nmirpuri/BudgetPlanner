@@ -44,14 +44,24 @@ def question_page(title, items, category_key, next_page):
         )
 
     # Submit button to store the inputs
-    if st.button("Submit"):
+    submit_button = st.button("Submit")
+
+    # When the Submit button is clicked, save the form data
+    if submit_button:
         st.session_state["submitted"] = True  # Mark the form as submitted
         st.success("Values submitted!")
 
-    # Next button to go to the next page if form is submitted
-    if st.session_state.get("submitted", False) and st.button("Next"):
-        st.session_state["page"] = next_page  # Move to the next page
-        st.session_state["submitted"] = False  # Reset the submitted flag for the next page
+    # Disable the Next button until the form has been submitted
+    if st.session_state.get("submitted", False):
+        # Next button to go to the next page if form is submitted
+        next_button = st.button("Next")
+        if next_button:
+            st.session_state["page"] = next_page  # Move to the next page
+            st.session_state["submitted"] = False  # Reset the submitted flag for the next page
+    else:
+        # Show a message prompting the user to submit before moving forward
+        st.warning("Please submit your values before moving to the next page.")
+
 
 
 if st.session_state["page"] == "housing":
