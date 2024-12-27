@@ -9,19 +9,19 @@ if "page" not in st.session_state:
 
 # Initialize dictionaries for each category
 category_dicts = {
-    "housing_values": {},
-    "transportation_values": {},
-    "food_values": {},
-    "health_values": {},
-    "debt_savings_values": {},
-    "personal_family_values": {},
-    "entertainment_travel_values": {},
-    "miscellaneous_values": {}
+    "housing_values": {"Rent": 0.0, "Utilities": 0.0, "Property Taxes": 0.0, "Cell Phone Bills": 0.0, "Other Housing Expenses": 0.0},
+    "transportation_values": {"Car Payments & Fuel": 0.0, "Public Transit": 0.0, "Maintenance & Insurance": 0.0},
+    "food_values": {"Groceries": 0.0, "Dining Out": 0.0},
+    "health_values": {"Health Insurance": 0.0, "Gym Membership": 0.0, "Medical Bills": 0.0},
+    "debt_savings_values": {"Student Loans": 0.0, "Credit Card Payments": 0.0, "Retirement Contributions": 0.0, "Savings": 0.0},
+    "personal_family_values": {"Clothing & Accessories": 0.0, "Subscriptions": 0.0, "Childcare or Pet Care": 0.0},
+    "entertainment_travel_values": {"Movies, Concerts, Hobbies": 0.0, "Flights & Accommodation": 0.0, "Transportation": 0.0},
+    "miscellaneous_values": {"Gifts & Donations": 0.0, "Unexpected Costs": 0.0}
 }
 
-for key in category_dicts:
+for key, default_values in category_dicts.items():
     if key not in st.session_state:
-        st.session_state[key] = {}
+        st.session_state[key] = default_values
 
 # Pages: Questions and Input Collection
 def question_page(title, items, category_key, next_page):
@@ -49,7 +49,6 @@ elif st.session_state["page"] == "entertainment_travel":
 elif st.session_state["page"] == "miscellaneous":
     question_page("Miscellaneous", ["Gifts & Donations", "Unexpected Costs"], "miscellaneous_values", "summary")
 
-# Page: Summary
 # Summary Page
 elif st.session_state["page"] == "summary":
     st.title("Budget Summary")
@@ -94,14 +93,14 @@ elif st.session_state["page"] == "expense_breakdown":
     data = {
         'Category': ['Housing', 'Transportation', 'Food', 'Health', 'Debt & Savings', 'Personal & Family', 'Entertainment & Travel', 'Miscellaneous'],
         'Amount': [
-            sum(housing_values.values()),
-            sum(transportation_values.values()),
-            sum(food_values.values()),
-            sum(health_values.values()),
-            sum(debt_savings_values.values()),
-            sum(personal_family_values.values()),
-            sum(entertainment_travel_values.values()),
-            sum(miscellaneous_values.values())
+            sum(st.session_state["housing_values"].values()),
+            sum(st.session_state["transportation_values"].values()),
+            sum(st.session_state["food_values"].values()),
+            sum(st.session_state["health_values"].values()),
+            sum(st.session_state["debt_savings_values"].values()),
+            sum(st.session_state["personal_family_values"].values()),
+            sum(st.session_state["entertainment_travel_values"].values()),
+            sum(st.session_state["miscellaneous_values"].values())
         ]
     }
     df = pd.DataFrame(data)
@@ -153,5 +152,3 @@ elif st.session_state["page"] == "savings_tracker":
 
     if st.button("Back to Summary"):
         st.session_state["page"] = "summary"
-
-
