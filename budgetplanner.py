@@ -6,7 +6,7 @@ import plotly.express as px
         
 # Initialize session state for navigation and categories
 if "page" not in st.session_state:
-    st.session_state["page"] = "opening"
+    st.session_state["page"] = "housing"
 
 # Initialize dictionaries for each category
 category_dicts = {
