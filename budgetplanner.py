@@ -3,7 +3,6 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 
-        
 # Initialize session state for navigation and categories
 if "page" not in st.session_state:
     st.session_state["page"] = "housing"
@@ -19,31 +18,6 @@ category_dicts = {
     "entertainment_travel_values": {"Movies, Concerts, Hobbies": 0.0, "Flights & Accommodation": 0.0, "Transportation": 0.0},
     "miscellaneous_values": {"Gifts & Donations": 0.0, "Unexpected Costs": 0.0}
 }
-
-def opening_page():
-    # Title for the page
-    st.title("Welcome to Your Budget Journey with Bud Jett!")
-    
-    # Display the first message
-    st.write("They say every journey needs a guide—well, we’re Your Bud Jett, and when it comes to budgeting, we’re always ready for takeoff!")
-    
-    # Display the second message and input field for the user to enter their name
-    st.write("What should we call you?")
-    user_name = st.text_input("Enter your name", "")
-
-    # Check if the user has entered their name and display a greeting
-    if user_name:
-        st.write(f"Nice to meet you, {user_name}! Let’s get your budget ready to take off!")
-    
-    # Add an image related to budgeting (you can replace the image URL with your desired one)
-    st.image("https://upload.wikimedia.org/wikipedia/en/thumb/d/d3/Starbucks_Corporation_Logo_2011.svg/1200px-Starbucks_Corporation_Logo_2011.svg.png", caption="Ready for takeoff with your budget!", use_column_width=True)
-    
-    # Add a button to proceed to the next page
-    if st.button("Next"):
-        # Store the user name in the session state
-        st.session_state["user_name"] = user_name
-        # Transition to the next page
-        st.session_state["page"] = "housing"  # Replace "housing" with the next page key or name
 
 for key, default_values in category_dicts.items():
     if key not in st.session_state:
@@ -90,7 +64,7 @@ def question_page(title, items, category_key, next_page):
         st.warning("Please submit your values before moving to the next page.")
 
 
-
+# Pages logic
 if st.session_state["page"] == "housing":
     question_page("Housing & Utilities", ["Rent", "Utilities", "Property Taxes", "Cell Phone Bills", "Other Housing Expenses"], "housing_values", "transportation")
 elif st.session_state["page"] == "transportation":
@@ -111,6 +85,9 @@ elif st.session_state["page"] == "miscellaneous":
 # Summary Page
 elif st.session_state["page"] == "summary":
     st.title("Budget Summary")
+    
+    # Display an image
+    st.image("https://upload.wikimedia.org/wikipedia/en/thumb/d/d3/Starbucks_Corporation_Logo_2011.svg/1200px-Starbucks_Corporation_Logo_2011.svg.png", width=200)
     
     # Retrieve stored values
     housing_values = st.session_state["housing_values"]
