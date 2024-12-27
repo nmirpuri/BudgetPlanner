@@ -23,19 +23,6 @@ for key in category_dicts:
     if key not in st.session_state:
         st.session_state[key] = {}
 
-# Sidebar Navigation
-with st.sidebar:
-    st.title("Navigation")
-    if st.session_state["page"] in ["housing", "transportation", "food", "health", "debt_savings", "personal_family", "entertainment_travel", "miscellaneous"]:
-        st.write("Please complete all questions to enable other sections.")
-    else:
-        if st.button("Chatbot"):
-            st.session_state["page"] = "chatbot"
-        if st.button("Suggested Budgets"):
-            st.session_state["page"] = "suggested_budgets"
-        if st.button("Summary"):
-            st.session_state["page"] = "summary"
-
 # Pages: Questions and Input Collection
 def question_page(title, items, category_key, next_page):
     st.title(f"Budget Planner - {title}")
@@ -63,52 +50,108 @@ elif st.session_state["page"] == "miscellaneous":
     question_page("Miscellaneous", ["Gifts & Donations", "Unexpected Costs"], "miscellaneous_values", "summary")
 
 # Page: Summary
+# Summary Page
 elif st.session_state["page"] == "summary":
     st.title("Budget Summary")
-
-    # Retrieve and display stored values
-    total_expenses = 0
-    data = []
-    for category, values in zip(
-        ["Housing", "Transportation", "Food", "Health", "Debt & Savings", "Personal & Family", "Entertainment & Travel", "Miscellaneous"],
-        [st.session_state[key] for key in category_dicts]
-    ):
-        total = sum(values.values())
-        total_expenses += total
-        data.append({"Category": category, "Amount": total})
-        st.write(f"### {category}")
-        for item, value in values.items():
-            st.write(f"{item}: ${value:.2f}")
-
-    # Display total expenses and charts
+    
+    # Retrieve stored values
+    housing_values = st.session_state["housing_values"]
+    transportation_values = st.session_state["transportation_values"]
+    food_values = st.session_state["food_values"]
+    health_values = st.session_state["health_values"]
+    debt_savings_values = st.session_state["debt_savings_values"]
+    personal_family_values = st.session_state["personal_family_values"]
+    entertainment_travel_values = st.session_state["entertainment_travel_values"]
+    miscellaneous_values = st.session_state["miscellaneous_values"]
+    
+    # Display total expenses summary
+    total_expenses = sum(sum(values.values()) for values in [
+        housing_values, transportation_values, food_values, health_values,
+        debt_savings_values, personal_family_values, entertainment_travel_values, miscellaneous_values
+    ])
+    
     st.write("### Total Expenses")
     st.write(f"**Total:** ${total_expenses:.2f}")
+    
+    # Add buttons for navigation
+    col1, col2, col3, col4 = st.columns(4)
+    with col1:
+        if st.button("Expense Breakdown"):
+            st.session_state["page"] = "expense_breakdown"
+    with col2:
+        if st.button("Chatbot"):
+            st.session_state["page"] = "chatbot"
+    with col3:
+        if st.button("Suggested Budgets"):
+            st.session_state["page"] = "suggested_budgets"
+    with col4:
+        if st.button("Savings Tracker"):
+            st.session_state["page"] = "savings_tracker"
 
+# Expense Breakdown Page
+elif st.session_state["page"] == "expense_breakdown":
+    st.title("Expense Breakdown")
+    data = {
+        'Category': ['Housing', 'Transportation', 'Food', 'Health', 'Debt & Savings', 'Personal & Family', 'Entertainment & Travel', 'Miscellaneous'],
+        'Amount': [
+            sum(housing_values.values()),
+            sum(transportation_values.values()),
+            sum(food_values.values()),
+            sum(health_values.values()),
+            sum(debt_savings_values.values()),
+            sum(personal_family_values.values()),
+            sum(entertainment_travel_values.values()),
+            sum(miscellaneous_values.values())
+        ]
+    }
     df = pd.DataFrame(data)
+    
+    # Pie Chart
     fig = px.pie(df, values='Amount', names='Category', title='Expense Distribution')
     st.plotly_chart(fig)
-
+    
+    # Bar Chart
     plt.bar(df['Category'], df['Amount'])
     plt.title('Expense Breakdown')
     st.pyplot(plt)
 
-# Page: Chatbot
-elif st.session_state["page"] == "chatbot":
-    st.title("Chatbot")
-    user_input = st.text_input("Enter your message:")
-    if user_input:
-        st.write("Chatbot Response: I'm here to help!")
+    if st.button("Back to Summary"):
+        st.session_state["page"] = "summary"
 
-# Page: Suggested Budgets
+# Chatbot Page
+elif st.session_state["page"] == "chatbot":
+    st.title("Budget Chatbot")
+    st.write("Ask any questions about budgeting, categories, or financial advice.")
+    user_input = st.text_input("You:")
+    if user_input:
+        st.write("Chatbot: Here's a response to your question!")  # Replace with chatbot logic
+    if st.button("Back to Summary"):
+        st.session_state["page"] = "summary"
+
+# Suggested Budgets Page
 elif st.session_state["page"] == "suggested_budgets":
     st.title("Suggested Budgets")
-    st.write("Here are some budget suggestions based on your inputs.")
-    # Example suggestions (you can enhance this logic)
-    total_income = st.number_input("Enter your total income:", min_value=0.0, step=0.01)
-    if total_income:
-        savings_target = 0.2 * total_income
-        st.write(f"Suggested Savings: ${savings_target:.2f}")
-        for category, amount in zip(df['Category'], df['Amount']):
-            percentage = (amount / total_expenses) * 100 if total_expenses else 0
-            st.write(f"{category}: {percentage:.2f}% of total expenses")
+    st.write("Here are some suggested budgets based on your expenses:")
+    st.write("- **50/30/20 Rule:** Allocate 50% to needs, 30% to wants, and 20% to savings.")
+    st.write("- **Dynamic Adjustments:** Recommendations based on your entered data.")
+    if st.button("Back to Summary"):
+        st.session_state["page"] = "summary"
+
+# Savings Tracker Page
+elif st.session_state["page"] == "savings_tracker":
+    st.title("Savings Tracker")
+    savings_goal = st.number_input("Set your savings goal:", min_value=0.0, step=100.0)
+    current_savings = st.number_input("Enter your current savings:", min_value=0.0, step=100.0)
+    
+    if savings_goal > 0:
+        progress = min(current_savings / savings_goal, 1.0)
+        st.progress(progress)
+        if progress >= 1.0:
+            st.success("Congratulations! You've reached your savings goal.")
+        else:
+            st.info(f"You've saved {progress * 100:.2f}% of your goal.")
+
+    if st.button("Back to Summary"):
+        st.session_state["page"] = "summary"
+
 
