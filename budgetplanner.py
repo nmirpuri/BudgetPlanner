@@ -48,6 +48,7 @@ def question_page(title, items, category_key, next_page):
 
     # When the Submit button is clicked, save the form data
     if submit_button:
+        st.session_state["page"] = next_page
         st.session_state["submitted"] = True  # Mark the form as submitted
         st.success("Values submitted!")
 
@@ -56,8 +57,7 @@ def question_page(title, items, category_key, next_page):
         # Next button to go to the next page if form is submitted
         next_button = st.button("Next")
         if next_button:
-            st.session_state["page"] = next_page
-            st.session_state["page"] = next_page# Move to the next page
+            # Move to the next page
             st.session_state["submitted"] = False  # Reset the submitted flag for the next page
     else:
         # Show a message prompting the user to submit before moving forward
