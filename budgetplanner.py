@@ -31,6 +31,8 @@ def question_page(title, items, category_key, next_page):
         st.session_state[category_key][item] = st.number_input(f"{item}:", min_value=0.0, step=0.01, key=f"{category_key}_{item}")
     if st.button("Next"):
         st.session_state["page"] = next_page
+        st.experimental_rerun()
+
 
 if st.session_state["page"] == "housing":
     question_page("Housing & Utilities", ["Rent", "Utilities", "Property Taxes", "Cell Phone Bills", "Other Housing Expenses"], "housing_values", "transportation")
