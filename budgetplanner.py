@@ -99,7 +99,7 @@ elif st.session_state["page"] == "welcome":
     submit_button = st.button("Submit")
     
     if submit_button:
-        st.session_state["page"] = next_page
+        st.session_state["page"] = "housing"
         st.session_state["submitted"] = True  # Mark the form as submitted
         st.title(f"Welcome, {st.session_state['username']}!")
 
