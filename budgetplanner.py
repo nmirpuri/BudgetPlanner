@@ -5,7 +5,7 @@ import plotly.express as px
 
 # Initialize session state for navigation and categories
 if "page" not in st.session_state:
-    st.session_state["page"] = "housing"
+    st.session_state["page"] = "welcome"
 
 if "user_name" not in st.session_state:
     st.session_state["user_name"] = ""
@@ -26,19 +26,7 @@ for key, default_values in category_dicts.items():
     if key not in st.session_state:
         st.session_state[key] = default_values
 
-def welcome_page():
-    st.title("Welcome to Your Bud Jett")
-    st.image("https://upload.wikimedia.org/wikipedia/en/thumb/d/d3/Starbucks_Corporation_Logo_2011.svg/1200px-Starbucks_Corporation_Logo_2011.svg.png", width=300)
-    st.write("They say every journey needs a guide—well, we’re Your Bud Jett, and when it comes to budgeting, we’re always ready for takeoff!")
-    st.write("What should we call you?")
 
-    st.session_state["user_name"] = st.text_input("Enter your name:")
-
-    if st.button("Submit and Next"):
-        if st.session_state["user_name"]:
-            st.session_state["page"] = "housing"
-        else:
-            st.warning("Please enter your name before proceeding.")
             
 # Pages: Questions and Input Collection
 def question_page(title, items, category_key, next_page):
@@ -99,6 +87,20 @@ elif st.session_state["page"] == "entertainment_travel":
 elif st.session_state["page"] == "miscellaneous":
     question_page("Miscellaneous", ["Gifts & Donations", "Unexpected Costs"], "miscellaneous_values", "summary")
 
+#Welcome Page
+elif st.session_state["page"] == "welcome":
+    st.title("Welcome to Your Bud Jett")
+    st.image("https://upload.wikimedia.org/wikipedia/en/thumb/d/d3/Starbucks_Corporation_Logo_2011.svg/1200px-Starbucks_Corporation_Logo_2011.svg.png", width=300)
+    st.write("They say every journey needs a guide—well, we’re Your Bud Jett, and when it comes to budgeting, we’re always ready for takeoff!")
+    st.write("What should we call you?")
+
+    st.session_state["user_name"] = st.text_input("Enter your name:")
+
+    if st.button("Submit and Next"):
+        if st.session_state["user_name"]:
+            st.session_state["page"] = "housing"
+        else:
+            st.warning("Please enter your name before proceeding.")
 # Summary Page
 elif st.session_state["page"] == "summary":
     st.title("Budget Summary")
