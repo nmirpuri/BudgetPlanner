@@ -118,7 +118,7 @@ elif st.session_state["page"] == "summary":
     st.title("Budget Summary")
     
     # Display an image
-    st.image("https://upload.wikimedia.org/wikipedia/en/thumb/d/d3/Starbucks_Corporation_Logo_2011.svg/1200px-Starbucks_Corporation_Logo_2011.svg.png", width=200)
+    st.image("https://i.postimg.cc/FKdSXFFL/image.png", width=200)
     
     # Retrieve stored values
     housing_values = st.session_state["housing_values"]
