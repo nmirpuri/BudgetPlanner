@@ -101,7 +101,7 @@ elif st.session_state["page"] == "welcome":
     if submit_button:
         st.session_state["page"] = "housing"
         st.session_state["submitted"] = True  # Mark the form as submitted
-        st.title(f"Welcome, {st.session_state['username']}!")
+        st.title(f"Welcome, {st.session_state['user_name']}!")
 
     # Disable the Next button until the form has been submitted
     if st.session_state.get("submitted", False):
