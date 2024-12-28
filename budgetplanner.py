@@ -96,6 +96,8 @@ elif st.session_state["page"] == "welcome":
 
     st.session_state["user_name"] = st.text_input("Enter your name:")
 
+    submit_button = st.button("Submit")
+    
     if submit_button:
         st.session_state["page"] = next_page
         st.session_state["submitted"] = True  # Mark the form as submitted
