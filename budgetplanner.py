@@ -89,9 +89,9 @@ elif st.session_state["page"] == "miscellaneous":
 
 #Welcome Page
 elif st.session_state["page"] == "welcome":
-    st.title("Welcome to Your Bud Jett")
-    st.image("https://upload.wikimedia.org/wikipedia/en/thumb/d/d3/Starbucks_Corporation_Logo_2011.svg/1200px-Starbucks_Corporation_Logo_2011.svg.png", width=300)
-    st.write("They say every journey needs a guide—well, we’re Your Bud Jett, and when it comes to budgeting, we’re always ready for takeoff!")
+    st.title("Welcome to Your Budgeting Journey")
+    st.image("https://i.postimg.cc/4NY5WP6w/image.png", width=300)
+    st.write("They say every journey needs a guide—well, I'm Your Bud Jett, and when it comes to budgeting, we’re always ready for takeoff!")
     st.write("What should we call you?")
 
     st.session_state["user_name"] = st.text_input("Enter your name:")
