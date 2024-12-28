@@ -110,7 +110,7 @@ if st.session_state.get("submitted", False):
             st.session_state["submitted"] = False  # Reset the submitted flag for the next page
         else:
         # Show a message prompting the user to submit before moving forward
-        st.warning("Please submit your values before moving to the next page.")
+            st.warning("Please submit your values before moving to the next page.")
 # Summary Page
 elif st.session_state["page"] == "summary":
     st.title("Budget Summary")
