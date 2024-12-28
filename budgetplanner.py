@@ -69,7 +69,7 @@ def question_page(title, items, category_key, next_page):
         st.warning("Please submit your values before moving to the next page.")
 
 
-# Pages logic
+# Pages logic 
 if st.session_state["page"] == "housing":
     question_page("Housing & Utilities", ["Rent", "Utilities", "Property Taxes", "Cell Phone Bills", "Other Housing Expenses"], "housing_values", "transportation")
 elif st.session_state["page"] == "transportation":
@@ -96,11 +96,21 @@ elif st.session_state["page"] == "welcome":
 
     st.session_state["user_name"] = st.text_input("Enter your name:")
 
-    if st.button("Submit and Next"):
-        if st.session_state["user_name"]:
-            st.session_state["page"] = "housing"
-        else:
-            st.warning("Please enter your name before proceeding.")
+if submit_button:
+        st.session_state["page"] = next_page
+        st.session_state["submitted"] = True  # Mark the form as submitted
+        st.title(f"Welcome, {st.session_state['username']}!")
+
+    # Disable the Next button until the form has been submitted
+    if st.session_state.get("submitted", False):
+        # Next button to go to the next page if form is submitted
+        next_button = st.button("Next")
+        if next_button:
+            # Move to the next page
+            st.session_state["submitted"] = False  # Reset the submitted flag for the next page
+    else:
+        # Show a message prompting the user to submit before moving forward
+        st.warning("Please submit your values before moving to the next page.")
 # Summary Page
 elif st.session_state["page"] == "summary":
     st.title("Budget Summary")
