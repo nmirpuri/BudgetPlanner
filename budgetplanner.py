@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import streamlit as st
 import pandas as pd
 import plotly.express as px
-from pages.budget_summary import render_budget_summary
+from budget_summary import render_budget_summary
 
 # Initialize session state for navigation and categories
 if "page" not in st.session_state:
