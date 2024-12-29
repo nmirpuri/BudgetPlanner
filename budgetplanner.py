@@ -91,7 +91,8 @@ elif st.session_state["page"] == "miscellaneous":
 elif st.session_state["page"] == "welcome":
     st.title("Welcome to Your Budgeting Journey")
     st.image("https://i.postimg.cc/KvffS19Y/Personal.gif", width=300)
-    st.write("They say every journey needs a guide—well, I'm Your Bud Jett, and when it comes to budgeting, we’re always ready for takeoff!")
+    st.write("Welcome to PEAK Budgeting – where your finances reach new heights! Let's conquer your financial goals, one step at a time.")
+    st.write("At PEAK Budgeting, we provide a powerful yet simple platform to help you track your expenses, plan your savings, and achieve financial stability. With intuitive tools and personalized insights, we make budgeting effortless and effective, empowering you to reach the peak of your financial potential.")
     st.write("What should we call you?")
 
     st.session_state["user_name"] = st.text_input("Enter your name:")
