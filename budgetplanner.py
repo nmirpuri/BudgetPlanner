@@ -90,7 +90,7 @@ elif st.session_state["page"] == "miscellaneous":
 #Welcome Page
 elif st.session_state["page"] == "welcome":
     st.title("Welcome to Your Budgeting Journey")
-    st.image("https://i.postimg.cc/4NY5WP6w/image.png", width=300)
+    st.image("https://i.postimg.cc/3JK1crJZ/e13dda99ca718bc17e3d446c67199a3c83615c8f.gif", width=300)
     st.write("They say every journey needs a guide—well, I'm Your Bud Jett, and when it comes to budgeting, we’re always ready for takeoff!")
     st.write("What should we call you?")
 
