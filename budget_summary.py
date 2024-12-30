@@ -2,12 +2,18 @@ import streamlit as st
 import matplotlib.pyplot as plt
 import pandas as pd
 import plotly.express as px
+from datetime import datetime, timedelta
 
 def render_budget_summary():
-  
     st.title("Expense Breakdown")
+    
+    # Expense data for Pie Chart and Bar Chart
     data = {
-        'Category': ['Housing', 'Transportation', 'Food', 'Health', 'Debt & Savings', 'Personal & Family', 'Entertainment & Travel', 'Miscellaneous'],
+        'Category': [
+            'Housing', 'Transportation', 'Food', 
+            'Health', 'Debt & Savings', 'Personal & Family', 
+            'Entertainment & Travel', 'Miscellaneous'
+        ],
         'Amount': [
             sum(st.session_state["housing_values"].values()),
             sum(st.session_state["transportation_values"].values()),
@@ -22,61 +28,53 @@ def render_budget_summary():
     df = pd.DataFrame(data)
     
     # Pie Chart
-    fig = px.pie(df, values='Amount', names='Category', title='Expense Distribution')
-    st.plotly_chart(fig)
+    fig_pie = px.pie(df, values='Amount', names='Category', title='Expense Distribution')
+    st.plotly_chart(fig_pie)
     
     # Bar Chart
-    plt.bar(df['Category'], df['Amount'])
+    plt.figure(figsize=(10, 5))
+    plt.bar(df['Category'], df['Amount'], color='skyblue')
     plt.title('Expense Breakdown')
+    plt.xlabel('Category')
+    plt.ylabel('Amount')
+    plt.xticks(rotation=45)
     st.pyplot(plt)
 
-# Sample budget allocation data
-    start_date = datetime(2024, 1, 1)  # Example start date
-
-# Generate week start dates
-    week_dates = [start_date + timedelta(weeks=i) for i in range(len(data["Week"]))]
-
-# Replace "Week" column with actual dates
-    data["Week"] = week_dates
-    data = {
-      "Category": ["Rent", "Groceries", "Entertainment", "Utilities", "Savings"],
-      "Allocation": [1000, 300, 150, 200, 350],
-      "Week": ["Week 1", "Week 2", "Week 3", "Week 4", "Week 5"]
+    # Timeline Allocation Visualization
+    st.subheader("Budget Allocation Timeline")
+    
+    # Sample budget allocation data
+    allocation_data = {
+        "Category": ["Rent", "Groceries", "Entertainment", "Utilities", "Savings"],
+        "Allocation": [1000, 300, 150, 200, 350],
     }
 
-# Convert data into a DataFrame
-    df = pd.DataFrame(data)
+    # Generate week start dates
+    start_date = datetime(2024, 1, 1)  # Example start date
+    week_dates = [start_date + timedelta(weeks=i) for i in range(5)]
+    allocation_data["Week"] = week_dates
 
-# Expand the data for each week
-    timeline_data = []
-    for category, allocation in zip(data["Category"], data["Allocation"]):
-        for week in data["Week"]:
-            timeline_data.append({"Category": category, "Allocation": allocation, "Week": week})
+    # Convert to DataFrame
+    timeline_df = pd.DataFrame(allocation_data)
 
-# Create a new DataFrame for the timeline
-    timeline_df = pd.DataFrame(timeline_data)
-
-# Create the timeline visualization
-    fig = px.timeline(
+    # Create the timeline visualization
+    fig_timeline = px.timeline(
         timeline_df,
         x_start="Week",
         x_end="Week",
         y="Category",
         color="Category",
         title="Budget Allocation Timeline",
-        labels={"Category": "Budget Category", "Allocation": "Amount Allocated"},
+        labels={"Category": "Budget Category", "Allocation": "Amount Allocated"}
     )
-
-    fig.update_yaxes(categoryorder="total ascending")  # Sort categories by total allocation
-    fig.update_layout(
+    fig_timeline.update_yaxes(categoryorder="total ascending")  # Sort categories by total allocation
+    fig_timeline.update_layout(
         xaxis_title="Time (Weeks)",
         yaxis_title="Budget Categories",
         showlegend=True,
     )
+    st.plotly_chart(fig_timeline)
 
-# Show the visualization
-    fig.show()
-
-
+    # Back button
     if st.button("Back to Summary"):
         st.session_state["page"] = "summary"
