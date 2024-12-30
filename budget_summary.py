@@ -30,5 +30,46 @@ def render_budget_summary():
     plt.title('Expense Breakdown')
     st.pyplot(plt)
 
+# Sample budget allocation data
+    data = {
+      "Category": ["Rent", "Groceries", "Entertainment", "Utilities", "Savings"],
+      "Allocation": [1000, 300, 150, 200, 350],
+      "Week": ["Week 1", "Week 2", "Week 3", "Week 4", "Week 5"]
+    }
+
+# Convert data into a DataFrame
+    df = pd.DataFrame(data)
+
+# Expand the data for each week
+    timeline_data = []
+    for category, allocation in zip(data["Category"], data["Allocation"]):
+        for week in data["Week"]:
+            timeline_data.append({"Category": category, "Allocation": allocation, "Week": week})
+
+# Create a new DataFrame for the timeline
+    timeline_df = pd.DataFrame(timeline_data)
+
+# Create the timeline visualization
+    fig = px.timeline(
+        timeline_df,
+        x_start="Week",
+        x_end="Week",
+        y="Category",
+        color="Category",
+        title="Budget Allocation Timeline",
+        labels={"Category": "Budget Category", "Allocation": "Amount Allocated"},
+    )
+
+    fig.update_yaxes(categoryorder="total ascending")  # Sort categories by total allocation
+    fig.update_layout(
+        xaxis_title="Time (Weeks)",
+        yaxis_title="Budget Categories",
+        showlegend=True,
+    )
+
+# Show the visualization
+    fig.show()
+
+
     if st.button("Back to Summary"):
         st.session_state["page"] = "summary"
