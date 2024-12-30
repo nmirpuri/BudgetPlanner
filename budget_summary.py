@@ -31,6 +31,13 @@ def render_budget_summary():
     st.pyplot(plt)
 
 # Sample budget allocation data
+    start_date = datetime(2024, 1, 1)  # Example start date
+
+# Generate week start dates
+    week_dates = [start_date + timedelta(weeks=i) for i in range(len(data["Week"]))]
+
+# Replace "Week" column with actual dates
+    data["Week"] = week_dates
     data = {
       "Category": ["Rent", "Groceries", "Entertainment", "Utilities", "Savings"],
       "Allocation": [1000, 300, 150, 200, 350],
