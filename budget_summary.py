@@ -41,36 +41,40 @@ def render_budget_summary():
     st.pyplot(plt)
 
     # Timeline Allocation Visualization
-    st.subheader("Budget Allocation Timeline")
-    
+    st.subheader("Budget Allocation for One Month")
+
     # Sample budget allocation data
     allocation_data = {
-        "Category": ["Rent", "Groceries", "Entertainment", "Utilities", "Savings"],
-        "Allocation": [1000, 300, 150, 200, 350],
+        "Category": ["Housing", "Transportation", "Food", "Health", "Entertainment", "Savings"],
+        "Monthly Allocation": [1200, 400, 600, 300, 200, 500],
     }
 
-    # Generate week start dates
-    start_date = datetime(2024, 1, 1)  # Example start date
-    week_dates = [start_date + timedelta(weeks=i) for i in range(5)]
-    allocation_data["Week"] = week_dates
+    # Divide the monthly allocation equally among 4 weeks
+    weekly_allocation = []
+    for category, allocation in zip(allocation_data["Category"], allocation_data["Monthly Allocation"]):
+        for week in range(1, 5):
+            weekly_allocation.append({
+                "Category": category,
+                "Week": f"Week {week}",
+                "Weekly Allocation": allocation / 4
+            })
 
     # Convert to DataFrame
-    timeline_df = pd.DataFrame(allocation_data)
+    timeline_df = pd.DataFrame(weekly_allocation)
 
-    # Create the timeline visualization
-    fig_timeline = px.timeline(
+    # Create the chart
+    fig_timeline = px.bar(
         timeline_df,
-        x_start="Week",
-        x_end="Week",
-        y="Category",
+        x="Week",
+        y="Weekly Allocation",
         color="Category",
-        title="Budget Allocation Timeline",
-        labels={"Category": "Budget Category", "Allocation": "Amount Allocated"}
+        barmode="stack",
+        title="Weekly Budget Allocation for Each Category",
+        labels={"Weekly Allocation": "Amount Allocated", "Week": "Weeks in Month"}
     )
-    fig_timeline.update_yaxes(categoryorder="total ascending")  # Sort categories by total allocation
     fig_timeline.update_layout(
-        xaxis_title="Time (Weeks)",
-        yaxis_title="Budget Categories",
+        xaxis_title="Weeks",
+        yaxis_title="Amount Allocated ($)",
         showlegend=True,
     )
     st.plotly_chart(fig_timeline)
