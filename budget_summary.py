@@ -40,7 +40,7 @@ def render_budget_summary():
     plt.xticks(rotation=45)
     st.pyplot(plt)
 
-     st.subheader("Budget Allocation Table")
+    st.subheader("Budget Allocation Table")
 
     # Calculate the total budget and percentages
     total_budget = df['Amount'].sum()
