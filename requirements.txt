@@ -2,3 +2,4 @@ streamlit
 matplotlib
 plotly
 pandas
+streamlit-chat== 0.1.1
