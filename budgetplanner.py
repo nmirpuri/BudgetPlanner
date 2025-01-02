@@ -3,6 +3,7 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 from budget_summary import render_budget_summary
+from budget_chatbot import render_budget_chatbot
 
 # Initialize session state for navigation and categories
 if "page" not in st.session_state:
@@ -162,13 +163,7 @@ elif st.session_state["page"] == "expense_breakdown":
 
 # Chatbot Page
 elif st.session_state["page"] == "chatbot":
-    st.title("Budget Chatbot")
-    st.write("Ask any questions about budgeting, categories, or financial advice.")
-    user_input = st.text_input("You:")
-    if user_input:
-        st.write("Chatbot: Here's a response to your question!")  # Replace with chatbot logic
-    if st.button("Back to Summary"):
-        st.session_state["page"] = "summary"
+    render_budget_chatbot()
 
 # Suggested Budgets Page
 elif st.session_state["page"] == "suggested_budgets":
