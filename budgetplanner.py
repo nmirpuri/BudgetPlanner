@@ -118,8 +118,8 @@ elif st.session_state["page"] == "welcome":
             st.warning("")
 # Summary Page
 elif st.session_state["page"] == "summary":
-    st.title("Budget Summary")
-    
+    st.title("Personal Finance Planner")
+    st.write("Welcome! Choose a module below:")
     # Display an image
     st.image("https://i.postimg.cc/FKdSXFFL/image.png", width=200)
     
@@ -148,22 +148,27 @@ elif st.session_state["page"] == "summary":
         if st.button("Expense Breakdown"):
             st.session_state["page"] = "expense_breakdown"
     with col2:
-        if st.button("Chatbot"):
-            st.session_state["page"] = "chatbot"
+        if st.button("Savings Recommendations"):
+            st.session_state["page"] = "savings"
     with col3:
-        if st.button("Suggested Budgets"):
-            st.session_state["page"] = "suggested_budgets"
+        if st.button("Budget Goals"):
+            st.session_state["page"] = "budget"
     with col4:
-        if st.button("Savings Tracker"):
-            st.session_state["page"] = "savings_tracker"
+        if st.button("Investment Simulator"):
+            st.session_state["page"] = "investment"
 
 # Expense Breakdown Page
 elif st.session_state["page"] == "expense_breakdown":
     render_budget_summary()
 
-# Chatbot Page
-elif st.session_state["page"] == "chatbot":
-    render_budget_chatbot()
+elif st.session_state["page"] == "savings":
+    render_savings_recommendations()
+
+elif st.session_state["page"] == "budget":
+    render_budget_goals()
+
+elif st.session_state["page"] == "investment":
+    render_investment_simulator()
 
 # Suggested Budgets Page
 elif st.session_state["page"] == "suggested_budgets":
