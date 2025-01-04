@@ -3,7 +3,9 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 from budget_summary import render_budget_summary
-from budget_chatbot import render_budget_chatbot
+from savings_recommendations import render_savings_recommendations
+from budget_goals import render_budget_goals
+from investment_simulator import render_investment_simulator
 
 # Initialize session state for navigation and categories
 if "page" not in st.session_state:
