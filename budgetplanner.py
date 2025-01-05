@@ -35,13 +35,11 @@ def income_page():
     st.write("Please enter your monthly income to get started:")
 
     # Initialize the session state for income if it doesn't exist
-     st.session_state["user_name"] =  st.number_input("Monthly Income:", min_value=0.0, step=1.00, key="monthly_income")
+    st.session_state["income"] =  st.number_input("Monthly Income:", min_value=0.0, step=1.00, key="monthly_income")
 
     # Submit button to save income
     submit_button = st.button("Submit")
 
-
-    
     if submit_button:
         st.session_state["page"] = "housing"
         st.session_state["submitted"] = True  # Mark the form as submitted
