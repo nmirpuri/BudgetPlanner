@@ -58,8 +58,7 @@ def income_page():
 
 
 # Update the navigation logic to include the Income page
-if st.session_state["page"] == "income":
-    income_page()
+
             
 # Pages: Questions and Input Collection
 def question_page(title, items, category_key, next_page):
@@ -105,6 +104,8 @@ def question_page(title, items, category_key, next_page):
 # Pages logic 
 if st.session_state["page"] == "housing":
     question_page("Housing & Utilities", ["Rent", "Utilities", "Property Taxes", "Cell Phone Bills", "Other Housing Expenses"], "housing_values", "transportation")
+elif st.session_state["page"] == "income":
+    income_page()
 elif st.session_state["page"] == "transportation":
     question_page("Transportation", ["Car Payments & Fuel", "Public Transit", "Maintenance & Insurance"], "transportation_values", "food")
 elif st.session_state["page"] == "food":
