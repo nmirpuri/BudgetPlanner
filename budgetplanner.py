@@ -35,13 +35,7 @@ def income_page():
     st.write("Please enter your monthly income to get started:")
 
     # Initialize the session state for income if it doesn't exist
-    if "monthly_income" not in st.session_state:
-        st.session_state["monthly_income"] = 0.0
-
-    # Input for monthly income
-    st.session_state["monthly_income"] = st.number_input(
-        "Monthly Income:", min_value=0.0, step=0.01, key="monthly_income"
-    )
+     st.session_state["user_name"] =  st.number_input("Monthly Income:", min_value=0.0, step=1.00, key="monthly_income")
 
     # Submit button to save income
     submit_button = st.button("Submit")
@@ -84,7 +78,7 @@ def question_page(title, items, category_key, next_page):
 
         # Use unique keys for each input
         st.session_state[category_key][item] = st.number_input(
-            f"{item}:", min_value=0.0, step=0.01, key=f"{category_key}_{item}"
+            f"{item}:", min_value=0.0, step=1.00, key=f"{category_key}_{item}"
         )
 
     # Submit button to store the inputs
