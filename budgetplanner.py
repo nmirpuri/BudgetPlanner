@@ -40,23 +40,22 @@ def income_page():
     # Submit button to save income
     submit_button = st.button("Submit")
 
+    # When the Submit button is clicked, save the form data
     if submit_button:
-        
+        st.session_state["page"] = "housing"
         st.session_state["submitted"] = True  # Mark the form as submitted
-        
+        st.success("Values submitted!")
 
     # Disable the Next button until the form has been submitted
     if st.session_state.get("submitted", False):
         # Next button to go to the next page if form is submitted
         next_button = st.button("Next")
         if next_button:
-            
             # Move to the next page
-            
             st.session_state["submitted"] = False  # Reset the submitted flag for the next page
-        else:
+    else:
         # Show a message prompting the user to submit before moving forward
-            st.warning("")
+        st.warning("Please submit your values before moving to the next page.")
 
 # Update the navigation logic to include the Income page
 if st.session_state["page"] == "income":
