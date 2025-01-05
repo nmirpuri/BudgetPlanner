@@ -8,7 +8,7 @@ def render_budget_goals():
     
     # User inputs
     st.subheader("Set Your Savings Goal")
-    goal = st.number_input("Enter your savings goal ($):", min_value=0.0, step=100.0)
+    goal = st.number_input("Enter your savings goal here ($):", min_value=0.0, step=100.0)
     current_savings = st.number_input("Enter your current savings ($):", min_value=0.0, step=100.0)
     target_date = st.date_input("Target Date for Goal", min_value=datetime.now().date())
     
