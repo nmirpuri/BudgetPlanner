@@ -1,47 +1,57 @@
 import streamlit as st
-import matplotlib.pyplot as plt
 import pandas as pd
 from datetime import datetime, timedelta
 
+# Function to render the Goal-Oriented Savings Planner page
 def render_budget_goals():
-    st.title("Savings Planner with Milestones")
+    st.title("Goal-Oriented Savings Planner")
     
     # User inputs
     st.subheader("Set Your Savings Goal")
-    goal = st.number_input("Enter your savings goal here ($):", min_value=0.0, step=100.0)
+    goal_name = st.text_input("What are you saving for? (e.g., Vacation, New Car, Emergency Fund)")
+    goal_amount = st.number_input("Enter your savings goal ($):", min_value=0.0, step=100.0)
     current_savings = st.number_input("Enter your current savings ($):", min_value=0.0, step=100.0)
     target_date = st.date_input("Target Date for Goal", min_value=datetime.now().date())
     
-    # Calculate progress and monthly savings needed
-    if goal > 0 and target_date > datetime.now().date():
+    if goal_name and goal_amount > 0 and target_date > datetime.now().date():
+        # Calculate savings details
         days_left = (target_date - datetime.now().date()).days
-        monthly_savings_needed = (goal - current_savings) / (days_left / 30.0)
-        
-        st.write(f"Days Left: {days_left} days")
-        st.write(f"Monthly Savings Needed: ${monthly_savings_needed:.2f}")
-        
-        # Display progress
-        progress = (current_savings / goal) * 100
-        st.write(f"Progress: {progress:.2f}%")
-        st.progress(min(progress / 100, 1.0))
+        weeks_left = days_left / 7
+        months_left = days_left / 30
+        weekly_savings_needed = (goal_amount - current_savings) / max(weeks_left, 1)
+        monthly_savings_needed = (goal_amount - current_savings) / max(months_left, 1)
         
         # Milestones
-        milestones = [goal * x / 4 for x in range(1, 5)]
-        st.write("### Milestones")
-        for i, milestone in enumerate(milestones, 1):
-            milestone_progress = min(current_savings / milestone, 1.0) * 100
-            st.write(f"Milestone {i}: ${milestone:.2f} ({milestone_progress:.2f}% completed)")
-            st.progress(min(milestone_progress / 100, 1.0))
+        st.write(f"### Goal: {goal_name}")
+        st.write("### Milestones:")
+        milestones = [(datetime.now().date() + timedelta(days=30 * i)).strftime("%B %Y") for i in range(int(months_left) + 1)]
+        milestone_amounts = [current_savings + (monthly_savings_needed * i) for i in range(len(milestones))]
+        for milestone, amount in zip(milestones, milestone_amounts):
+            st.write(f"- Save ${amount:.2f} by {milestone}")
         
-        # Savings over time chart
-        st.write("### Savings Growth Over Time")
-        dates = [datetime.now().date() + timedelta(days=x * 30) for x in range(int(days_left / 30) + 1)]
-        savings_projection = [current_savings + monthly_savings_needed * i for i in range(len(dates))]
-        df = pd.DataFrame({"Date": dates, "Savings": savings_projection})
-        st.line_chart(df.set_index("Date"))
+        # Display savings breakdown
+        st.write(f"### Savings Breakdown:")
+        st.write(f"- Weekly Savings Needed: **${weekly_savings_needed:.2f}**")
+        st.write(f"- Monthly Savings Needed: **${monthly_savings_needed:.2f}**")
+        
+        # Recommendations for saving
+        st.write("### Recommendations to Save:")
+        recommendations = [
+            "Limit dining out to once a week.",
+            "Cancel unused subscriptions.",
+            "Create a grocery list and stick to it to avoid impulse buying.",
+            "Sell items you no longer need.",
+            "Set up automatic transfers to your savings account."
+        ]
+        for rec in recommendations:
+            st.write(f"- {rec}")
+        
+        # Motivational section
+        st.subheader("Why It’s Worth It")
+        st.write(f"💡 Remember: Achieving your goal of **{goal_name}** means {goal_name.lower()} will soon become a reality!")
     
     else:
-        st.write("Enter a goal and target date to calculate progress.")
+        st.write("Please fill out all fields to calculate your savings plan.")
     
     # Back button
     if st.button("Back to Summary"):
