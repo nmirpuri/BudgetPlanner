@@ -130,9 +130,9 @@ elif st.session_state["page"] == "welcome":
 
     st.session_state["user_name"] = st.text_input("Enter your name:")
 
-    submit_button = st.button("Submit")
+    submitbutton = st.button("Submit")
     
-    if submit_button:
+    if submitbutton:
         st.session_state["page"] = "income"
         st.session_state["submitted"] = True  # Mark the form as submitted
         st.title(f"Welcome, {st.session_state['user_name']}!")
@@ -140,8 +140,8 @@ elif st.session_state["page"] == "welcome":
     # Disable the Next button until the form has been submitted
     if st.session_state.get("submitted", False):
         # Next button to go to the next page if form is submitted
-        next_button = st.button("Next")
-        if next_button:
+        nextbutton = st.button("Next")
+        if nextbutton:
             # Move to the next page
             st.session_state["submitted"] = False  # Reset the submitted flag for the next page
         else:
