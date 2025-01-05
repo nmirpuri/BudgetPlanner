@@ -8,7 +8,7 @@ def render_budget_goals():
     
     # User inputs
     st.subheader("Set Your Savings Goal")
-    goal_name = st.text_input("What are you saving for? (e.g., Vacation, New Car, Emergency Fund)")
+    goal_name = st.text_input("What are you saving for? (e.g., Planning a Vacation, Buying a New Car, Saving for an Emergency Fund)")
     goal_amount = st.number_input("Enter your savings goal ($):", min_value=0.0, step=100.0)
     current_savings = st.number_input("Enter your current savings ($):", min_value=0.0, step=100.0)
     target_date = st.date_input("Target Date for Goal", min_value=datetime.now().date())
@@ -48,8 +48,8 @@ def render_budget_goals():
         
         # Motivational section
         st.subheader("Why It’s Worth It")
-        st.write(f"💡 Remember: Achieving your goal of **{goal_name}** means {goal_name.lower()} will soon become a reality!")
-    
+        st.write(f"💡 Remember: Achieving your goal of **{goal_name}** means it will soon become a reality!")
+        st.write("Saving is not about depriving yourself; it's about deciding you love your future self just as much as your present self.")
     else:
         st.write("Please fill out all fields to calculate your savings plan.")
     
