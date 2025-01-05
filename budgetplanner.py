@@ -41,7 +41,7 @@ def income_page():
     submit_button = st.button("Submit")
 
     if submit_button:
-        st.session_state["page"] = "housing"
+        
         st.session_state["submitted"] = True  # Mark the form as submitted
         
 
@@ -51,6 +51,7 @@ def income_page():
         next_button = st.button("Next")
         if next_button:
             # Move to the next page
+            st.session_state["page"] = "housing"
             st.session_state["submitted"] = False  # Reset the submitted flag for the next page
         else:
         # Show a message prompting the user to submit before moving forward
