@@ -30,7 +30,42 @@ for key, default_values in category_dicts.items():
     if key not in st.session_state:
         st.session_state[key] = default_values
 
+def income_page():
+    st.title("Budget Planner - Monthly Income")
+    st.write("Please enter your monthly income to get started:")
 
+    # Initialize the session state for income if it doesn't exist
+    if "monthly_income" not in st.session_state:
+        st.session_state["monthly_income"] = 0.0
+
+    # Input for monthly income
+    st.session_state["monthly_income"] = st.number_input(
+        "Monthly Income:", min_value=0.0, step=0.01, key="monthly_income"
+    )
+
+    # Submit button to save income
+    submit_button = st.button("Submit")
+
+
+    
+    if submit_button:
+        st.session_state["page"] = "housing"
+        st.session_state["submitted"] = True  # Mark the form as submitted
+
+    # Disable the Next button until the form has been submitted
+    if st.session_state.get("submitted", False):
+        # Next button to go to the next page if form is submitted
+        next_button = st.button("Next")
+        if next_button:
+            # Move to the next page
+            st.session_state["submitted"] = False  # Reset the submitted flag for the next page
+        else:
+        # Show a message prompting the user to submit before moving forward
+            st.warning("")
+
+# Update the navigation logic to include the Income page
+if st.session_state["page"] == "income":
+    income_page()
             
 # Pages: Questions and Input Collection
 def question_page(title, items, category_key, next_page):
@@ -104,7 +139,7 @@ elif st.session_state["page"] == "welcome":
     submit_button = st.button("Submit")
     
     if submit_button:
-        st.session_state["page"] = "housing"
+        st.session_state["page"] = "income"
         st.session_state["submitted"] = True  # Mark the form as submitted
         st.title(f"Welcome, {st.session_state['user_name']}!")
 
