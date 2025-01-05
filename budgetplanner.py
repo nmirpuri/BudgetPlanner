@@ -43,6 +43,7 @@ def income_page():
     if submit_button:
         st.session_state["page"] = "housing"
         st.session_state["submitted"] = True  # Mark the form as submitted
+        
 
     # Disable the Next button until the form has been submitted
     if st.session_state.get("submitted", False):
@@ -145,6 +146,10 @@ elif st.session_state["page"] == "welcome":
         else:
         # Show a message prompting the user to submit before moving forward
             st.warning("")
+
+
+
+
 # Summary Page
 elif st.session_state["page"] == "summary":
     st.title("Personal Finance Planner")
