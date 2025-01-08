@@ -7,6 +7,30 @@ from savings_recommendations import render_savings_recommendations
 from budget_goals import render_budget_goals
 from investment_simulator import render_investment_simulator
 
+st.markdown(
+    """
+    <style>
+        body {
+            background-color: #f5f5dc; /* Creamish background color */
+        }
+        .main {
+            border: 4px solid #003366; /* Navy blue border */
+            padding: 20px;
+            border-radius: 10px;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #003366; /* Navy blue text for headers */
+        }
+        .small-images img {
+            margin: 10px;
+            border-radius: 8px;
+            border: 2px solid #003366; /* Optional border for images */
+        }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
+
 # Initialize session state for navigation and categories
 if "page" not in st.session_state:
     st.session_state["page"] = "welcome"
