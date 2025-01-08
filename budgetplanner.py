@@ -7,8 +7,16 @@ from savings_recommendations import render_savings_recommendations
 from budget_goals import render_budget_goals
 from investment_simulator import render_investment_simulator
 
-[theme]
-backgroundColor = "#F0F0F0"
+st.markdown(
+    """
+    <style>
+    .reportview-container {
+        background: url("https://www.example.com/image.jpg");
+    }
+   </style>
+    """,
+    unsafe_allow_html=True
+)
 # Initialize session state for navigation and categories
 if "page" not in st.session_state:
     st.session_state["page"] = "welcome"
