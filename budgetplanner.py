@@ -7,7 +7,8 @@ from savings_recommendations import render_savings_recommendations
 from budget_goals import render_budget_goals
 from investment_simulator import render_investment_simulator
 
-
+[theme]
+backgroundColor = "#F0F0F0"
 # Initialize session state for navigation and categories
 if "page" not in st.session_state:
     st.session_state["page"] = "welcome"
