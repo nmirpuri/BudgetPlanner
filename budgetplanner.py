@@ -7,13 +7,16 @@ from savings_recommendations import render_savings_recommendations
 from budget_goals import render_budget_goals
 from investment_simulator import render_investment_simulator
 
+st.set_page_config(page_title="Streamlit Background Example", layout="wide")
+
+# Apply custom CSS for background color
 st.markdown(
     """
     <style>
-    .reportview-container {
-        background: url("https://www.example.com/image.jpg");
-    }
-   </style>
+        body {
+            background-color: #f5f5dc; /* Creamish background color */
+        }
+    </style>
     """,
     unsafe_allow_html=True
 )
