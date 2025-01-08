@@ -1,0 +1,25 @@
+/* style.css */
+body {
+    background-color: #f5f5dc; /* Cream color */
+    color: #000080; /* Navy blue text color */
+}
+
+.stApp {
+    background-image: url("https://i.postimg.cc/FKdSXFFL/image.png");
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+}
+
+.stMarkdown h1 {
+    color: #000080; /* Navy blue headings */
+    text-align: center;
+}
+
+.stButton > button {
+    background-color: #000080;
+    color: white;
+    border-radius: 8px;
+    padding: 10px;
+    font-size: 16px;
+}
