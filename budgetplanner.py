@@ -7,11 +7,6 @@ from savings_recommendations import render_savings_recommendations
 from budget_goals import render_budget_goals
 from investment_simulator import render_investment_simulator
 
-primaryColor="#FF4B4B"
-backgroundColor="#FFFFFF"
-secondaryBackgroundColor="#F0F2F6"
-textColor="#31333F"
-font="sans serif"
 
 # Initialize session state for navigation and categories
 if "page" not in st.session_state:
@@ -69,6 +64,12 @@ def income_page():
             
 # Pages: Questions and Input Collection
 def question_page(title, items, category_key, next_page):
+    primaryColor="#FF4B4B"
+    backgroundColor="#FFFFFF"
+    secondaryBackgroundColor="#F0F2F6"
+    textColor="#31333F"
+    font="sans serif"
+
     st.title(f"Budget Planner - {title}")
     st.write(f"Enter your {title} expenses below:")
 
