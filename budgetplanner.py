@@ -7,19 +7,31 @@ from savings_recommendations import render_savings_recommendations
 from budget_goals import render_budget_goals
 from investment_simulator import render_investment_simulator
 
-st.set_page_config(page_title="Streamlit Background Example", layout="wide")
+st.set_page_config(page_title="Custom Background Example", layout="wide")
 
-# Apply custom CSS for background color
-st.markdown(
-    """
-    <style>
-        body {
-            background-color: #f5f5dc; /* Creamish background color */
-        }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
+# Inject CSS for a background
+page_bg = """
+<style>
+    /* Add a background image or color */
+    body {
+        background-color: #f5f5dc; /* Creamish background color */
+        background-image: url('https://via.placeholder.com/1920x1080'); /* Replace with your image URL */
+        background-size: cover;
+        background-attachment: fixed;
+        background-position: center;
+    }
+
+    /* Optional: Style the main container for borders */
+    .stApp {
+        border: 2px solid #001f3f; /* Navy blue border */
+        border-radius: 15px;
+        padding: 20px;
+    }
+</style>
+"""
+
+# Render the CSS on the app
+st.markdown(page_bg, unsafe_allow_html=True)
 # Initialize session state for navigation and categories
 if "page" not in st.session_state:
     st.session_state["page"] = "welcome"
