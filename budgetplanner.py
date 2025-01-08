@@ -9,19 +9,15 @@ from investment_simulator import render_investment_simulator
 
 
 
-background: #ff0099; 
-background: -webkit-linear-gradient(to right, #ff0099, #493240); 
-background: linear-gradient(to right, #ff0099, #493240);"
+st.set_page_config(page_title="Styled Streamlit App", layout="wide")
 
-st.markdown("""
-<style>
-body {
-  background: #ff0099; 
-  background: -webkit-linear-gradient(to right, #ff0099, #493240); 
-  background: linear-gradient(to right, #ff0099, #493240); 
-}
-</style>
-    """, unsafe_allow_html=True)
+# Load the CSS file
+def load_css(css_file):
+    with open(css_file, "r") as f:
+        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+
+# Apply the CSS
+load_css("style.css")  # Ensure style.css is in the same directory
 # Initialize session state for navigation and categories
 if "page" not in st.session_state:
     st.session_state["page"] = "welcome"
