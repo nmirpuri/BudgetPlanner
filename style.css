@@ -6,7 +6,7 @@ body {
 
 .stApp {
     background-image: url("https://i.postimg.cc/ydvGC6Vv/image.png");
-    background-size: cover;
+    background-size: original;;
     background-attachment: fixed;
     background-position: center;
 }
